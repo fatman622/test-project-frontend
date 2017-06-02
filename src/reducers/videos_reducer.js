@@ -1,13 +1,13 @@
-import { GET_PROFILE} from '../actions/types';
+import { GET_VIDEOS} from '../actions/types';
 
 const INITIAL_STATE ={
-	profile: null
+	all_videos: []
 };
 
 export default function(state = INITIAL_STATE, action){
 	switch(action.type){
-		case GET_PROFILE:
-			return {...state, profile: action.payload.data} ;
+		case GET_VIDEOS:
+			return {...state, all_videos: action.payload.data} ;
 		default:
 			return state;
 	}

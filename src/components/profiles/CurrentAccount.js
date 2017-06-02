@@ -9,6 +9,10 @@ import {reduxForm, Field} from 'redux-form';
 import TextField from 'material-ui/TextField';
 import FlatButton from 'material-ui/FlatButton';
 import Avatar from 'material-ui/Avatar';
+import {List, ListItem} from 'material-ui/List';
+import Subheader from 'material-ui/Subheader';
+import Paper from 'material-ui/Paper';
+
 
 const renderInput = ({ input, label, meta: { touched, error }, ...custom }) => (
   <TextField hintText={label}
@@ -18,10 +22,40 @@ const renderInput = ({ input, label, meta: { touched, error }, ...custom }) => (
     {...custom}
   />
 )
+const styles = {
+  resources: {
+    float: 'left',
+    marginLeft: '20%',
+    marginTop: '60px'
+  },
+  userInfo: {
+  	float: 'right',
+  	marginRight: '20%',
+    marginTop: '60px',
+    padding: '20px'
+  }
+};
 
 const FileUpload = ({ input, type }) =>
   <input type={type} {...input} />
 
+const Resources = () => (
+  <div style={styles.resources}>
+	  <Paper>
+	    <List>
+	      <Subheader>Resources available</Subheader>
+	      <ListItem
+	        primaryText="Profile photo"
+	        secondaryText="Change your Google+ profile photo"
+	      />
+	      <ListItem
+	        primaryText="Show your status"
+	        secondaryText="Your status is visible to everyone you use with"
+	      />
+	    </List>
+	  </Paper>
+  </div>
+);
 
 class CurrentAccount extends Component{
 
@@ -58,42 +92,45 @@ class CurrentAccount extends Component{
 		const {handleSubmit} = this.props;
 		return(
 			<div>
-				<form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
-					<Avatar
-				 		src={"https://s3-us-west-2.amazonaws.com/feedback-adpi/%3Ausers/"+this.props.profile.avatar_file_name} 
-				 		size={150}
-				 	/>
-				 	<br />  
-          <div>
-	         	<Field
-	         	 name="avatar"
-	         	 component={FileUpload}
-	         	 type="file" 
-	         	/>
-         	</div>
-					<div>
-	          <Field 
-	          	name="first_name" 
-	          	component={renderInput} 
-	          	type="text"
-	          	label="First Name"
-	          />
-          </div>
-          <div>                     
-	          <Field 
-	          	name="last_name" 
-	          	component={renderInput} 
-	          	type="text"
-	          	label="Last Name"
-	          />
-          </div>
-         
-        	<FlatButton 
-        		label="Update" 
-        		primary={true} 
-        		type="submit"
-        	/>
-	      </form>
+				<Resources />
+				<Paper style={styles.userInfo}>
+					<form onSubmit={handleSubmit(this.onSubmit.bind(this))}>
+						<Avatar
+					 		src={"https://s3-us-west-2.amazonaws.com/feedback-adpi/profiles/"+this.props.profile.avatar_file_name} 
+					 		size={150}
+					 	/>
+					 	<br />  
+	          <div>
+		         	<Field
+		         	 name="avatar"
+		         	 component={FileUpload}
+		         	 type="file" 
+		         	/>
+	         	</div>
+						<div>
+		          <Field 
+		          	name="first_name" 
+		          	component={renderInput} 
+		          	type="text"
+		          	label="First Name"
+		          />
+	          </div>
+	          <div>                     
+		          <Field 
+		          	name="last_name" 
+		          	component={renderInput} 
+		          	type="text"
+		          	label="Last Name"
+		          />
+	          </div>
+	         
+	        	<FlatButton 
+	        		label="Update" 
+	        		primary={true} 
+	        		type="submit"
+	        	/>
+		      </form>
+	      </Paper>
 			</div>
 		);
 	}

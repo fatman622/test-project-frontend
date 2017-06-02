@@ -9,6 +9,7 @@ import IconButton from 'material-ui/IconButton';
 import IconMenu from 'material-ui/IconMenu';
 import MenuItem from 'material-ui/MenuItem';
 import MoreVertIcon from 'material-ui/svg-icons/navigation/more-vert';
+import SvgIcon from 'material-ui/SvgIcon';
 
 const styles = {
   title: {
@@ -16,6 +17,15 @@ const styles = {
   },
 };
 
+const iconStyles = {
+  marginRight: 24,
+};
+
+const HomeIcon = (props) => (
+  <SvgIcon {...props}>
+    <path d="M10 20v-6h4v6h5v-8h3L12 3 2 12h3v8z" />
+  </SvgIcon>
+);
 
 class PagesHeader extends Component{
 
@@ -41,13 +51,8 @@ class PagesHeader extends Component{
 		}
 	}
 
-	toAllUsers(){
-		if (cookie.load('headersCookie')) {
-			browserHistory.push('/profiles');
-		}
-	}
 
-	toAllBooks(){
+	toAllResources(){
 		if (cookie.load('headersCookie')) {
 			browserHistory.push('/');
 		}
@@ -57,7 +62,15 @@ class PagesHeader extends Component{
 		return(
 			<div>
 				<AppBar
-			    title={	<span onTouchTap={this.toAllBooks.bind(this)} style={styles.title}> Books App </span> }>
+					iconElementLeft={	
+						<IconButton>
+							<HomeIcon onTouchTap={this.toAllResources.bind(this)} style={iconStyles} />
+						</IconButton>
+					}
+			    title={	
+			    	<span onTouchTap={this.toAllResources.bind(this)} style={styles.title}> Test App 
+			    	</span> 
+			    }>
   			  <IconMenu
 				    iconButtonElement={
 				      <IconButton><MoreVertIcon /></IconButton>
@@ -65,8 +78,7 @@ class PagesHeader extends Component{
 				    targetOrigin={{horizontal: 'left', vertical: 'center'}}
 				    anchorOrigin={{horizontal: 'left', vertical: 'center'}}
 				  > 
-	    			<MenuItem onTouchTap={this.toAllUsers.bind(this)} primaryText="All Users" />
-				    <MenuItem onTouchTap={this.toCurrentProfile.bind(this)} primaryText="Profile" />
+				    <MenuItem onTouchTap={this.toCurrentProfile.bind(this)} primaryText="Dashboard" />
 				    <MenuItem onTouchTap={this.signOutUser.bind(this)} primaryText="Sign out" />
 				  </IconMenu>
 			  </AppBar>
